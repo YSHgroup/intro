@@ -1,0 +1,37 @@
+---
+import Icon from './Icon.astro';
+import type { LinkItem } from '../data/site';
+
+interface Props {
+  items: LinkItem[];
+  showHandle?: boolean;
+}
+const { items, showHandle = true } = Astro.props;
+---
+
+<ul class="link-list">
+  {items.map((l) => (
+    <li>
+      <a href={l.href} target={l.key === 'email' ? undefined : '_blank'} rel="noopener noreferrer" class="link-chip">
+        <Icon name={l.key} />
+        <span class="txt">
+          <strong>{l.label}</strong>
+          {showHandle && <small>{l.handle}</small>}
+        </span>
+      </a>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .link-list { display: flex; flex-wrap: wrap; gap: .75rem; list-style: none; padding: 0; margin: 0; }
+  .link-chip {
+    display: flex; align-items: center; gap: .65rem; padding: .6rem 1rem;
+    border: 1px solid var(--border); border-radius: 14px; background: #fff;
+    text-decoration: none; color: var(--navy); transition: border-color .15s, transform .15s;
+  }
+  .link-chip:hover { border-color: var(--teal); transform: translateY(-1px); }
+  .link-chip :global(svg) { color: var(--blue); flex: none; }
+  .txt { display: flex; flex-direction: column; line-height: 1.25; }
+  .txt small { color: var(--muted); }
+</style>

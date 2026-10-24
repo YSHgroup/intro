@@ -1,5 +1,6 @@
 ---
-import { owner, site } from '../data/site';
+import { owner, site, personalLinks, projectLinks } from '../data/site';
+import Icon from './Icon.astro';
 ---
 
 <footer class="site-footer">
@@ -7,19 +8,28 @@ import { owner, site } from '../data/site';
     <div>
       <strong>{site.name}</strong>
       <p>{site.tagline}</p>
+      <p class="proj">
+        {projectLinks.map((l) => (
+          <a href={l.href} target="_blank" rel="noopener noreferrer" aria-label={l.label} title={l.label}>
+            <Icon name={l.key} size={22} />
+          </a>
+        ))}
+      </p>
     </div>
     <div>
-      <p>A portfolio project by <span class="placeholder">{owner.name}</span></p>
-      <p>
-        {owner.links.map((l, i) => (
-          <>{i > 0 && ' · '}<a href={l.href}>{l.label}</a></>
+      <p>A portfolio project by <a href="/about">{owner.name}</a></p>
+      <p class="proj">
+        {personalLinks.map((l) => (
+          <a href={l.href} target={l.key === 'email' ? undefined : '_blank'} rel="noopener noreferrer" aria-label={l.label} title={l.label}>
+            <Icon name={l.key} size={22} />
+          </a>
         ))}
       </p>
     </div>
   </div>
   <div class="container fine">
     <small>
-      © {new Date().getFullYear()} {owner.name}. Concept stage. Not medical advice and not a medical service.
+      © {new Date().getFullYear()} {owner.name}. Preview version. Not medical advice and not a medical service.
     </small>
   </div>
 </footer>
@@ -30,5 +40,6 @@ import { owner, site } from '../data/site';
   .site-footer a { color: #8fd8ff; }
   .inner { display: flex; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
   .inner p { margin: .3rem 0 0; }
+  .proj { display: flex; gap: .9rem; margin-top: .8rem !important; }
   .fine { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,.15); opacity: .8; }
 </style>

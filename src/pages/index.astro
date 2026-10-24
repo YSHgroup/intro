@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { site, owner } from '../data/site';
+import { site, owner, projectLinks } from '../data/site';
+import LinkList from '../components/LinkList.astro';
 import { pillars, worlds, scope, loop, evidenceLevels, principles } from '../data/content';
 ---
 
@@ -38,6 +39,11 @@ import { pillars, worlds, scope, loop, evidenceLevels, principles } from '../dat
             <ul>{w.items.map((i) => <li>{i}</li>)}</ul>
           </article>
         ))}
+      </div>
+      <div class="follow">
+        <p class="eyebrow">Follow the build</p>
+        <p>Code, models and datasets for the project are shared in the open as they take shape.</p>
+        <LinkList items={projectLinks} />
       </div>
     </div>
   </section>
@@ -93,16 +99,24 @@ import { pillars, worlds, scope, loop, evidenceLevels, principles } from '../dat
 
   <section class="section">
     <div class="container">
-      <div class="notice">
-        <strong>About the builder:</strong>
-        <span class="placeholder">{owner.name}</span>, {owner.role}.
-        <a href="/about">Read more →</a>
+      <div class="builder card">
+        <img src="/images/david-avatar.jpg" alt={`Portrait of ${owner.name}`} width="88" height="88" />
+        <div>
+          <p class="eyebrow">Built by</p>
+          <h3>{owner.name}</h3>
+          <p>{owner.role} · {owner.location}. Researching the idea and building the project infrastructure.</p>
+          <a href="/about">More about me →</a>
+        </div>
       </div>
     </div>
   </section>
 </BaseLayout>
 
 <style>
+  .follow { margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+  .builder { display: flex; gap: 1.25rem; align-items: center; flex-wrap: wrap; }
+  .builder img { width: 88px; height: 88px; border-radius: 50%; object-fit: cover; }
+  .builder p { margin-bottom: .4rem; }
   .hero { padding-top: 4rem; }
   .hero-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 3rem; align-items: center; }
   .hero-logo { width: 100%; height: auto; }

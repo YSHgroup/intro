@@ -7,6 +7,7 @@ import { nav, site } from '../data/site';
     <a href="/" class="brand" aria-label={`${site.name} home`}>
       <img src="/images/healthspan-mark.png" alt="" width="36" height="36" />
       <span>{site.name}</span>
+      <em class="badge">Preview</em>
     </a>
     <nav aria-label="Main">
       <ul>
@@ -25,6 +26,10 @@ import { nav, site } from '../data/site';
   .bar { display: flex; align-items: center; justify-content: space-between; padding: .7rem 0; gap: 1rem; flex-wrap: wrap; }
   .brand { display: flex; align-items: center; gap: .6rem; text-decoration: none; color: var(--navy); font-weight: 700; }
   .brand img { border-radius: 9px; }
+  .badge {
+    font-style: normal; font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+    padding: .15rem .5rem; border-radius: 999px; background: var(--grad); color: #fff;
+  }
   ul { display: flex; gap: 1.4rem; list-style: none; margin: 0; padding: 0; }
   nav a { text-decoration: none; color: var(--navy-soft); font-weight: 500; }
   nav a:hover { color: var(--blue); }

@@ -14,16 +14,14 @@ npm run build    # static output in dist/
 
 | What | File |
 | --- | --- |
-| Your name, bio, links (placeholders) | `src/data/site.ts` |
+| Name, bio, skills, links (personal + project) | `src/data/site.ts` |
 | Idea content (pillars, roadmap, MVP...) | `src/data/content.ts` |
 | Pages | `src/pages/` (`index`, `about`, `roadmap`) |
 | Colors / global styles | `src/styles/global.css` |
-| Logo and emblem | `public/images/`, favicon at `public/favicon.png` |
-
-Placeholders are outlined with a dashed yellow border (`.placeholder` class in `global.css`).
+| Logo, emblem, banner, avatar | `public/images/`, favicon at `public/favicon.png` |
 
 ## Before publishing
 
 - Set `site` (and `base` if hosted under a sub-path) in `astro.config.mjs`.
-- Replace all placeholders in `src/data/site.ts`.
+- Remove the "Preview" badge (`Header.astro`) and update `site.status` when you launch.
 - Nav links and images use root paths (`/roadmap`, `/images/...`); if you set a `base`, prefix them with `import.meta.env.BASE_URL`.
