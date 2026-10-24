@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { owner, site } from '../data/site';
+---
+
+<BaseLayout title="About Me">
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">About me</p>
+      <h1 class="placeholder">{owner.name}</h1>
+      <p class="lead"><span class="placeholder">{owner.role}</span> · <span class="placeholder">{owner.location}</span></p>
+      <p class="placeholder">{owner.bio}</p>
+
+      <h2 style="margin-top:2.5rem">Why {site.name}?</h2>
+      <p class="placeholder">{owner.whyThisProject}</p>
+
+      <h2 style="margin-top:2.5rem">Skills</h2>
+      <ul class="chips">{owner.skills.map((s) => <li class="chip placeholder">{s}</li>)}</ul>
+
+      <h2 style="margin-top:2.5rem">Get in touch</h2>
+      <p><a class="placeholder" href={`mailto:${owner.email}`}>{owner.email}</a></p>
+      <ul class="chips">
+        {owner.links.map((l) => <li><a class="chip" href={l.href}>{l.label}</a></li>)}
+      </ul>
+
+      <p class="notice" style="margin-top:2.5rem">
+        Dashed yellow outlines mark placeholders. Edit <code>src/data/site.ts</code> to replace them
+        (and remove the <code>placeholder</code> class when you're done).
+      </p>
+    </div>
+  </section>
+</BaseLayout>

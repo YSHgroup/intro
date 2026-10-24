@@ -1,0 +1,31 @@
+---
+import { nav, site } from '../data/site';
+---
+
+<header class="site-header">
+  <div class="container bar">
+    <a href="/" class="brand" aria-label={`${site.name} home`}>
+      <img src="/images/healthspan-mark.png" alt="" width="36" height="36" />
+      <span>{site.name}</span>
+    </a>
+    <nav aria-label="Main">
+      <ul>
+        {nav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(255, 255, 255, .92); backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+  .bar { display: flex; align-items: center; justify-content: space-between; padding: .7rem 0; gap: 1rem; flex-wrap: wrap; }
+  .brand { display: flex; align-items: center; gap: .6rem; text-decoration: none; color: var(--navy); font-weight: 700; }
+  .brand img { border-radius: 9px; }
+  ul { display: flex; gap: 1.4rem; list-style: none; margin: 0; padding: 0; }
+  nav a { text-decoration: none; color: var(--navy-soft); font-weight: 500; }
+  nav a:hover { color: var(--blue); }
+</style>

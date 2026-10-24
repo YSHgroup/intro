@@ -1,0 +1,113 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site, owner } from '../data/site';
+import { pillars, worlds, scope, loop, evidenceLevels, principles } from '../data/content';
+---
+
+<BaseLayout>
+  <section class="hero section">
+    <div class="container hero-grid">
+      <div>
+        <p class="eyebrow">{site.status}</p>
+        <h1>
+          A global network for better <span class="grad-text">human health, capability and longevity.</span>
+        </h1>
+        <p class="lead">{site.description}</p>
+        <p>
+          <a class="btn primary" href="#idea">Explore the idea</a>
+          <a class="btn ghost" href="/about">Meet the builder</a>
+        </p>
+      </div>
+      <img class="hero-logo" src="/images/healthspan-logo.png" alt="Healthspan Network logo" width="560" />
+    </div>
+  </section>
+
+  <section id="idea" class="section soft">
+    <div class="container">
+      <p class="eyebrow">The idea</p>
+      <h2>People join to improve themselves. Researchers join to move science forward.</h2>
+      <p class="lead">
+        Healthspan Network connects a broad consumer health community with serious scientific
+        collaboration. Fitness, nutrition, skin and brain health bring people in; knowledge, evidence
+        and research workspaces take them deeper.
+      </p>
+      <div class="grid cols-2" style="margin-top:2rem">
+        {worlds.map((w) => (
+          <article class="card">
+            <h3>{w.title}</h3>
+            <ul>{w.items.map((i) => <li>{i}</li>)}</ul>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Scope</p>
+      <h2>Broad entry points, deep science.</h2>
+      <ul class="chips">{scope.map((s) => <li class="chip">{s}</li>)}</ul>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="container">
+      <p class="eyebrow">Eight pillars</p>
+      <h2>What the platform does</h2>
+      <div class="grid cols-4">
+        {pillars.map((p) => (
+          <article class="card">
+            <h3>{p.title}</h3>
+            <p>{p.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">North-star loop</p>
+      <h2>Social activity is the top of the research funnel.</h2>
+      <ol class="loop">{loop.map((l) => <li>{l}</li>)}</ol>
+      <p class="lead">…and back to the next question, with better AI each time around.</p>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="container">
+      <p class="eyebrow">Trust layer</p>
+      <h2>Not all claims are equal, so the product says so.</h2>
+      <p class="lead">Every scientific item carries its evidence type, provenance and uncertainty.</p>
+      <ul class="chips" style="margin-bottom:2rem">{evidenceLevels.map((e) => <li class="chip">{e}</li>)}</ul>
+      <div class="grid cols-4">
+        {principles.map((p) => (
+          <article class="card">
+            <h3>{p.title}</h3>
+            <p>{p.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="notice">
+        <strong>About the builder:</strong>
+        <span class="placeholder">{owner.name}</span>, {owner.role}.
+        <a href="/about">Read more →</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero { padding-top: 4rem; }
+  .hero-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 3rem; align-items: center; }
+  .hero-logo { width: 100%; height: auto; }
+  @media (max-width: 800px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-logo { order: -1; max-width: 360px; }
+  }
+</style>

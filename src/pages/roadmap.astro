@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { phases, mvp, stack } from '../data/content';
+---
+
+<BaseLayout title="Roadmap" description="Phased roadmap, MVP scope and planned architecture for Healthspan Network.">
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Roadmap</p>
+      <h1>Build the network first, then the infrastructure.</h1>
+      <p class="lead">
+        The biggest risk is trying to build everything at once. The plan is to validate each layer
+        before the next one.
+      </p>
+      <div class="table-wrap" style="margin-top:2rem">
+        <table>
+          <thead>
+            <tr><th>Phase</th><th>Name</th><th>Focus</th><th>Outcome</th></tr>
+          </thead>
+          <tbody>
+            {phases.map((p) => (
+              <tr>
+                <td>{p.phase}</td>
+                <td><strong>{p.name}</strong></td>
+                <td>{p.focus}</td>
+                <td>{p.outcome}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="container grid cols-2">
+      <article class="card">
+        <h3>MVP scope</h3>
+        <ul>{mvp.map((m) => <li>{m}</li>)}</ul>
+      </article>
+      <article class="card">
+        <h3>Planned architecture</h3>
+        <ul>{stack.map(([k, v]) => <li><strong>{k}:</strong> {v}</li>)}</ul>
+      </article>
+    </div>
+  </section>
+</BaseLayout>
