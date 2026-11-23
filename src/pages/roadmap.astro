@@ -1,19 +1,34 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import RelatedLinks from '../components/RelatedLinks.astro';
 import { phases, mvp, stack } from '../data/content';
+import { site } from '../data/site';
+import { breadcrumbLd } from '../data/seo';
+
+const origin = Astro.site ?? new URL(site.url);
+const crumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Roadmap', href: '/roadmap/' },
+];
 ---
 
 <BaseLayout
   title="Roadmap & MVP"
   description="Phased roadmap, MVP scope and planned architecture for Healthspan Network, an AI-powered healthspan and longevity research platform."
+  jsonLd={[breadcrumbLd(crumbs, origin)]}
 >
+  <Breadcrumbs items={crumbs} />
+
   <section class="section">
     <div class="container">
       <p class="eyebrow">Roadmap</p>
       <h1>Build the network first, then the infrastructure.</h1>
       <p class="lead">
         The biggest risk is trying to build everything at once. The plan is to validate each layer
-        before the next one.
+        before the next one. New here? Start with
+        <a href="/#idea">the idea behind Healthspan Network</a> or read
+        <a href="/about/">about the founder, David Chan</a>.
       </p>
       <div class="table-wrap" style="margin-top:2rem">
         <table>
@@ -47,4 +62,6 @@ import { phases, mvp, stack } from '../data/content';
       </article>
     </div>
   </section>
+
+  <RelatedLinks current="/roadmap/" heading="Where to next?" />
 </BaseLayout>

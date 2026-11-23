@@ -1,5 +1,5 @@
 ---
-import { owner, site, personalLinks, projectLinks } from '../data/site';
+import { owner, site, personalLinks, projectLinks, pages } from '../data/site';
 import Icon from './Icon.astro';
 ---
 
@@ -16,8 +16,14 @@ import Icon from './Icon.astro';
         ))}
       </p>
     </div>
+    <nav aria-label="Footer">
+      <strong>Explore</strong>
+      <ul class="foot-nav">
+        {pages.map((p) => <li><a href={p.href}>{p.label}</a></li>)}
+      </ul>
+    </nav>
     <div>
-      <p>A portfolio project by <a href="/about">{owner.name}</a></p>
+      <p>A portfolio project by <a href="/about/">{owner.name}</a></p>
       <p class="proj">
         {personalLinks.map((l) => (
           <a href={l.href} target={l.key === 'email' ? undefined : '_blank'} rel="noopener noreferrer" aria-label={l.label} title={l.label}>
@@ -40,6 +46,7 @@ import Icon from './Icon.astro';
   .site-footer a { color: #8fd8ff; }
   .inner { display: flex; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
   .inner p { margin: .3rem 0 0; }
+  .foot-nav { list-style: none; margin: .4rem 0 0; padding: 0; display: grid; gap: .3rem; }
   .proj { display: flex; gap: .9rem; margin-top: .8rem !important; }
   .fine { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,.15); opacity: .8; }
 </style>

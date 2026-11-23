@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { site, owner, projectLinks } from '../data/site';
 import LinkList from '../components/LinkList.astro';
+import RelatedLinks from '../components/RelatedLinks.astro';
 import { pillars, worlds, scope, loop, evidenceLevels, principles } from '../data/content';
 ---
 
@@ -16,7 +17,8 @@ import { pillars, worlds, scope, loop, evidenceLevels, principles } from '../dat
         <p class="lead">{site.description}</p>
         <p>
           <a class="btn primary" href="#idea">Explore the idea</a>
-          <a class="btn ghost" href="/about">Meet the builder</a>
+          <a class="btn ghost" href="/roadmap/">See the roadmap</a>
+          <a class="btn ghost" href="/about/">Meet the builder</a>
         </p>
       </div>
       <img class="hero-logo" src="/images/healthspan-logo.png" alt="Healthspan Network logo" width="560" />
@@ -30,7 +32,8 @@ import { pillars, worlds, scope, loop, evidenceLevels, principles } from '../dat
       <p class="lead">
         Healthspan Network connects a broad consumer health community with serious scientific
         collaboration. Fitness, nutrition, skin and brain health bring people in; knowledge, evidence
-        and research workspaces take them deeper.
+        and research workspaces take them deeper. See how it gets built in the
+        <a href="/roadmap/">phased roadmap and MVP scope</a>.
       </p>
       <div class="grid cols-2" style="margin-top:2rem">
         {worlds.map((w) => (
@@ -68,6 +71,10 @@ import { pillars, worlds, scope, loop, evidenceLevels, principles } from '../dat
           </article>
         ))}
       </div>
+      <p class="more">
+        Curious how these pillars become a product? Read the
+        <a href="/roadmap/">Healthspan Network roadmap</a> for the phases, MVP and planned architecture.
+      </p>
     </div>
   </section>
 
@@ -105,14 +112,17 @@ import { pillars, worlds, scope, loop, evidenceLevels, principles } from '../dat
           <p class="eyebrow">Built by</p>
           <h3>{owner.name}</h3>
           <p>{owner.role} · {owner.location}. Researching the idea and building the project infrastructure.</p>
-          <a href="/about">More about me →</a>
+          <a href="/about/">More about {owner.name} →</a>
         </div>
       </div>
     </div>
   </section>
+
+  <RelatedLinks current="/" heading="Dig deeper into the project" />
 </BaseLayout>
 
 <style>
+  .more { margin-top: 1.75rem; color: var(--muted); }
   .follow { margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--border); }
   .builder { display: flex; gap: 1.25rem; align-items: center; flex-wrap: wrap; }
   .builder img { width: 88px; height: 88px; border-radius: 50%; object-fit: cover; }

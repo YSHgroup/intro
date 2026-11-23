@@ -1,7 +1,17 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import LinkList from '../components/LinkList.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import RelatedLinks from '../components/RelatedLinks.astro';
 import { owner, site, personalLinks } from '../data/site';
+import { breadcrumbLd } from '../data/seo';
+
+const origin = Astro.site ?? new URL(site.url);
+const pageUrl = new URL('/about/', origin).href;
+const crumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'About', href: '/about/' },
+];
 ---
 
 <BaseLayout
@@ -11,14 +21,17 @@ import { owner, site, personalLinks } from '../data/site';
   jsonLd={[
     {
       '@type': 'ProfilePage',
-      '@id': `${new URL('/about/', Astro.site ?? site.url).href}#profilepage`,
-      url: new URL('/about/', Astro.site ?? site.url).href,
+      '@id': `${pageUrl}#profilepage`,
+      url: pageUrl,
       name: `About ${owner.name}`,
-      isPartOf: { '@id': `${(Astro.site ?? new URL(site.url)).href}#website` },
-      mainEntity: { '@id': `${new URL('/about/', Astro.site ?? site.url).href}#person` },
+      isPartOf: { '@id': `${origin.href}#website` },
+      mainEntity: { '@id': `${pageUrl}#person` },
     },
+    breadcrumbLd(crumbs, origin),
   ]}
 >
+  <Breadcrumbs items={crumbs} />
+
   <section class="banner">
     <div class="container">
       <img
@@ -51,6 +64,10 @@ import { owner, site, personalLinks } from '../data/site';
 
       <h2>Why {site.name}?</h2>
       <p class="lead">{owner.whyThisProject}</p>
+      <p>
+        Read <a href="/#idea">the idea behind the network</a> or jump to the
+        <a href="/roadmap/">roadmap and MVP scope</a> to see how it will be built.
+      </p>
 
       <h2>Skills</h2>
       <div class="grid cols-4">
@@ -66,6 +83,8 @@ import { owner, site, personalLinks } from '../data/site';
       <LinkList items={personalLinks} />
     </div>
   </section>
+
+  <RelatedLinks current="/about/" heading="Explore the project" />
 </BaseLayout>
 
 <style>

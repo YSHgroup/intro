@@ -62,6 +62,25 @@ export const projectLinks = links.filter((l) => l.scope === 'project');
 export const nav = [
   { label: 'Home', href: '/' },
   { label: 'The Idea', href: '/#idea' },
-  { label: 'Roadmap', href: '/roadmap' },
-  { label: 'About Me', href: '/about' },
+  { label: 'Roadmap', href: '/roadmap/' },
+  { label: 'About Me', href: '/about/' },
+];
+
+// Used by <RelatedLinks /> and the footer. Anchor text is descriptive on purpose.
+export const pages = [
+  {
+    href: '/',
+    label: 'Healthspan Network home',
+    blurb: 'The idea: a health network that feeds a scientific research network.',
+  },
+  {
+    href: '/roadmap/',
+    label: 'Roadmap and MVP',
+    blurb: 'Phases, MVP scope and the planned architecture, step by step.',
+  },
+  {
+    href: '/about/',
+    label: 'About David Chan',
+    blurb: 'The founder behind the project: background, skills and links.',
+  },
 ];
