@@ -6,6 +6,12 @@ export const site = {
   positioning: 'A global network for better human health, capability and longevity.',
   description:
     'An AI-powered social and scientific collaboration platform connecting people, knowledge, data and researchers to accelerate responsible innovation in human healthspan, medicine, biotechnology and the science of longevity.',
+  // SEO: keep homeTitle <= ~60 chars and metaDescription <= ~160 chars.
+  homeTitle: 'Healthspan Network | AI for Longevity & Science',
+  metaDescription:
+    'An AI-powered network connecting people and researchers to accelerate healthspan, longevity, medicine and biotechnology research.',
+  ogImage: '/images/og-image.png',
+  ogImageAlt: 'Healthspan Network logo: Better People. Better Science. A Healthier Future.',
   status: 'Preview · Research & infrastructure stage',
   updated: 'October 2026',
   url: 'https://yshintro.netlify.app',

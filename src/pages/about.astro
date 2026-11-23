@@ -4,7 +4,21 @@ import LinkList from '../components/LinkList.astro';
 import { owner, site, personalLinks } from '../data/site';
 ---
 
-<BaseLayout title="About Me" description={`${owner.name}: ${owner.headline}`}>
+<BaseLayout
+  title={`About ${owner.name}`}
+  description={`Meet ${owner.name}, Singapore-based software developer and founder building the Healthspan Network, an AI-powered platform for longevity research.`}
+  ogType="profile"
+  jsonLd={[
+    {
+      '@type': 'ProfilePage',
+      '@id': `${new URL('/about/', Astro.site ?? site.url).href}#profilepage`,
+      url: new URL('/about/', Astro.site ?? site.url).href,
+      name: `About ${owner.name}`,
+      isPartOf: { '@id': `${(Astro.site ?? new URL(site.url)).href}#website` },
+      mainEntity: { '@id': `${new URL('/about/', Astro.site ?? site.url).href}#person` },
+    },
+  ]}
+>
   <section class="banner">
     <div class="container">
       <img

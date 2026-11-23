@@ -2,14 +2,72 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
-import { site } from '../data/site';
+import { site, owner, projectLinks, personalLinks } from '../data/site';
 
 interface Props {
+  /** Page-specific title. Rendered as "<title> | Site name". Omit on the home page. */
   title?: string;
   description?: string;
+  /** Set on pages that must not appear in search results (e.g. 404). */
+  noindex?: boolean;
+  ogType?: 'website' | 'article' | 'profile';
+  /** Extra JSON-LD nodes for this page (added next to the site-wide Organization/WebSite). */
+  jsonLd?: Record<string, unknown>[];
 }
-const { title, description = site.description } = Astro.props;
-const pageTitle = title ? `${title} | ${site.name}` : `${site.name}: ${site.positioning}`;
+const {
+  title,
+  description = site.metaDescription,
+  noindex = false,
+  ogType = 'website',
+  jsonLd = [],
+} = Astro.props;
+
+const pageTitle = title ? `${title} | ${site.name}` : site.homeTitle;
+
+// Absolute URLs: canonical + social crawlers need fully-qualified links.
+const origin = Astro.site ?? new URL(site.url);
+const canonicalUrl = new URL(Astro.url.pathname, origin).href;
+const ogImageUrl = new URL(site.ogImage, origin).href;
+const logoUrl = new URL('/images/healthspan-logo.png', origin).href;
+
+// Site-wide structured data (Organization + WebSite) plus any page-specific nodes.
+const graph = [
+  {
+    '@type': 'Organization',
+    '@id': `${origin.href}#organization`,
+    name: site.name,
+    alternateName: site.fullName,
+    url: origin.href,
+    logo: logoUrl,
+    description: site.metaDescription,
+    founder: { '@id': `${new URL('/about/', origin).href}#person` },
+    sameAs: projectLinks.map((l) => l.href),
+  },
+  {
+    '@type': 'Person',
+    '@id': `${new URL('/about/', origin).href}#person`,
+    name: owner.name,
+    jobTitle: owner.role,
+    description: owner.headline,
+    url: new URL('/about/', origin).href,
+    image: new URL('/images/david-avatar.jpg', origin).href,
+    address: { '@type': 'PostalAddress', addressLocality: owner.location },
+    sameAs: personalLinks.filter((l) => l.key !== 'email').map((l) => l.href),
+    worksFor: { '@id': `${origin.href}#organization` },
+  },
+  {
+    '@type': 'WebSite',
+    '@id': `${origin.href}#website`,
+    url: origin.href,
+    name: site.name,
+    description: site.metaDescription,
+    inLanguage: 'en',
+    publisher: { '@id': `${origin.href}#organization` },
+  },
+  ...jsonLd,
+];
+// Escape "<" so the JSON can never close the <script> tag early.
+const jsonLdString = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }).replace(/</g, '\\u003c');
 ---
 
 <!doctype html>
@@ -17,17 +75,42 @@ const pageTitle = title ? `${title} | ${site.name}` : `${site.name}: ${site.posi
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
     <meta name="description" content={description} />
+    <meta name="author" content={owner.name} />
+    <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'} />
+    {!noindex && <link rel="canonical" href={canonicalUrl} />}
     <meta name="theme-color" content="#0a1a3f" />
+
     <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content="/images/healthspan-mark.png" />
-    <title>{pageTitle}</title>
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={site.ogImageAlt} />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+    <meta name="twitter:image:alt" content={site.ogImageAlt} />
+
+    <!-- Structured data -->
+    <script type="application/ld+json" set:html={jsonLdString} />
   </head>
   <body>
     <Header />
-    <main>
+    <main id="main">
       <slot />
     </main>
     <Footer />
