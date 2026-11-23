@@ -1,7 +1,10 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 
-// If this lives under a sub-path (e.g. /projects/healthspan), also set `base`.
+// Production URL (Netlify). Used for canonical URLs, Open Graph URLs,
+// sitemap.xml and robots.txt. If this lives under a sub-path, also set `base`.
 export default defineConfig({
-  site: 'https://portfolio.davidpro.workers.dev',
+  site: 'https://yshintro.netlify.app',
+  // Netlify serves pages as /about/ — keep every URL consistent with that.
+  trailingSlash: 'always',
 });

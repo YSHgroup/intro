@@ -8,7 +8,7 @@ export const site = {
     'An AI-powered social and scientific collaboration platform connecting people, knowledge, data and researchers to accelerate responsible innovation in human healthspan, medicine, biotechnology and the science of longevity.',
   status: 'Preview · Research & infrastructure stage',
   updated: 'October 2026',
-  url: 'https://portfolio.davidpro.workers.dev',
+  url: 'https://yshintro.netlify.app',
 };
 
 export type LinkItem = {
