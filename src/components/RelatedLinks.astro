@@ -1,0 +1,33 @@
+---
+import { pages } from '../data/site';
+
+interface Props {
+  /** Path of the current page, so it is not linked to itself. */
+  current: string;
+  heading?: string;
+}
+const { current, heading = 'Keep exploring' } = Astro.props;
+const items = pages.filter((p) => p.href !== current);
+---
+
+<section class="section related" aria-labelledby="related-heading">
+  <div class="container">
+    <p class="eyebrow">More on this site</p>
+    <h2 id="related-heading">{heading}</h2>
+    <div class="grid cols-2">
+      {items.map((p) => (
+        <a class="card tile" href={p.href}>
+          <h3>{p.label} →</h3>
+          <p>{p.blurb}</p>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .tile { display: block; text-decoration: none; color: var(--text); transition: border-color .15s, transform .15s; }
+  .tile:hover { border-color: var(--teal); transform: translateY(-1px); }
+  .tile h3 { color: var(--blue); }
+  .tile p { color: var(--muted); }
+</style>

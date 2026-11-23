@@ -6,9 +6,15 @@ export const site = {
   positioning: 'A global network for better human health, capability and longevity.',
   description:
     'An AI-powered social and scientific collaboration platform connecting people, knowledge, data and researchers to accelerate responsible innovation in human healthspan, medicine, biotechnology and the science of longevity.',
+  // SEO: keep homeTitle <= ~60 chars and metaDescription <= ~160 chars.
+  homeTitle: 'Healthspan Network | AI for Longevity & Science',
+  metaDescription:
+    'An AI-powered network connecting people and researchers to accelerate healthspan, longevity, medicine and biotechnology research.',
+  ogImage: '/images/og-image.png',
+  ogImageAlt: 'Healthspan Network logo: Better People. Better Science. A Healthier Future.',
   status: 'Preview · Research & infrastructure stage',
   updated: 'October 2026',
-  url: 'https://portfolio.davidpro.workers.dev',
+  url: 'https://yshintro.netlify.app',
 };
 
 export type LinkItem = {
@@ -56,6 +62,25 @@ export const projectLinks = links.filter((l) => l.scope === 'project');
 export const nav = [
   { label: 'Home', href: '/' },
   { label: 'The Idea', href: '/#idea' },
-  { label: 'Roadmap', href: '/roadmap' },
-  { label: 'About Me', href: '/about' },
+  { label: 'Roadmap', href: '/roadmap/' },
+  { label: 'About Me', href: '/about/' },
+];
+
+// Used by <RelatedLinks /> and the footer. Anchor text is descriptive on purpose.
+export const pages = [
+  {
+    href: '/',
+    label: 'Healthspan Network home',
+    blurb: 'The idea: a health network that feeds a scientific research network.',
+  },
+  {
+    href: '/roadmap/',
+    label: 'Roadmap and MVP',
+    blurb: 'Phases, MVP scope and the planned architecture, step by step.',
+  },
+  {
+    href: '/about/',
+    label: 'About David Chan',
+    blurb: 'The founder behind the project: background, skills and links.',
+  },
 ];

@@ -1,0 +1,5 @@
+# https://yshintro.netlify.app/robots.txt
+User-agent: *
+Allow: /
+
+Sitemap: https://yshintro.netlify.app/sitemap.xml

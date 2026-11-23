@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { pages } from '../data/site';
+---
+
+<BaseLayout title="Page not found" description="The page you were looking for does not exist." noindex>
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">404</p>
+      <h1>This page could not be found.</h1>
+      <p class="lead">
+        The link may be broken or the page may have moved. Try one of these instead:
+      </p>
+      <ul class="links">
+        {pages.map((p) => <li><a href={p.href}>{p.label}</a>: {p.blurb}</li>)}
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .links { padding-left: 1.1rem; color: var(--muted); }
+  .links li { margin-bottom: .4rem; }
+</style>
